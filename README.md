@@ -63,6 +63,36 @@ Homework
 VggNet and GoogLeNet were SOTA in 2014
 the concept of main idea is to lay out layer deeper and deeper 
 
+Homework
+- week3_cv_seminar.ipynb
+-- visualize image data
+--- cv_imshow, plt.imshow, PIL.open 
+
+---- 
+
+## Week4
+Augmentation 
+
+- To prevent overfitting, we do augenmentation. 
+
+----
+
+## Week5 
+GoogLeNet & ResNet
+### GoogLeNet(2014)
+ - the reason why using 1x1 conv layer
+ -- model can optimization computing memory -> could make layer deeper and deeper 
+ - google uses concept of width, so they could use variable filter size
+
+### ResNet(2015)
+ - "is learning better network as easy as stacking more layers?"
+ -- No!! , degradation problem(of training accuracy)
+ -- solution : "Identity Mapping + Residual Mapping"
+ --- the formula is easy to understand but, this change problem definition , whole layer to seperate layer problem
+ 
+ 
+
+
 
 
 
