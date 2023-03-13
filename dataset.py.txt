@@ -1,0 +1,44 @@
+from torch.utils.data import Dataset, DataLoader #커스터마이징
+import cv2
+import os
+import torch
+import torchvision
+from torchvision import transforms #이미지 데이터 augmentation
+import glob
+
+
+
+class Custom_dataset(Dataset):
+  def __init__(self, root_path, mode, transforms=None) : #특수메소드 생성자
+    self.all_data = sorted(glob.glob(os.path.join(root_path, mode, '*', '*'))) # 데이터경로
+    #mode : train/valid/test : 데이터셋 종류
+    self.transforms = transforms # augmentation
+
+  def __getitem__(self, index):
+    if torch.is_tensor(index):
+      index = index.tolist()
+
+    # 이미지 읽기기
+    data_path = self.all_data[index]
+    image = cv2.imread(data_path)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #채널 측 : BGR -> RGB
+
+    # transforms(Augmentation)
+    if self.transforms is not None : #클래스 생성할때 인자를 넣어줬으면
+      augmentation = self.transforms(image = image)
+      image = augmentation['image']
+
+    # label 만들어주기..
+    label = []
+    if 'dolphin' in data_path.split('/')[-1]  :
+      label = 0
+    elif 'shark' in data_path.split('/')[-1]  :
+      label = 1
+    else : 
+      label = 2 
+
+    return image, label
+
+  def __len__(self):
+    length = len(self.all_data) # 전체데이터개수
+    return length
